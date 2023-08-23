@@ -12,5 +12,10 @@ const UsersLogin = async(username, password) => {
     return rows;
 }
 
+const Register = async( firstName, lastName, email, username, password ) => {
+    const query = await db.query('INSERT INTO users (firstName, lastName, email, username, password) values (?, ?, ?, ? ,?)', [firstName, lastName, email, username, password])
+    return query[0].affectedRows === 1;
+}
 
-module.exports = { getUsers : getUsers, UsersLogin : UsersLogin};
+
+module.exports = { getUsers : getUsers, UsersLogin : UsersLogin, Register : Register};

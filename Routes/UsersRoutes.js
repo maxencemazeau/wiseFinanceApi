@@ -13,6 +13,12 @@ const usersRoutes = (fastify, options, done) => {
         res.send(userLogin);
     })
 
+    fastify.post('/register', async(req, res) => {
+        const { firstName, lastName, email, username, password } = req.body;
+        const newUser = await UsersController.Register( firstName, lastName, email, username, password );
+        res.send(newUser);
+    })
+
     done();
 }
 
