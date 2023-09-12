@@ -5,6 +5,7 @@ const port = 8080;
 fastify.register(cors);
 
 fastify.register(require('./Routes/UsersRoutes'));
+fastify.register(require('./Routes/GoalsRoutes'));
 
 
 fastify.listen(port, (err, address) => {
