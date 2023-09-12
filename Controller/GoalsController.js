@@ -7,7 +7,7 @@ const getGoals = async () => {
 }
 
 const getGoalsById = async(userId) => {
-    const query = await db.query('SELECT goalId, userId, goal.goalTypeId, targetAmount, goalName FROM Goal INNER JOIN GoalType ON goal.goalTypeID = goalType.goalTypeID WHERE userId = ?', [userId]);
+    const query = await db.query('SELECT goalId, userId, goal.goalTypeId, targetAmount, goalName FROM Goal INNER JOIN GoalType ON goal.goalTypeID = goalType.goalTypeID WHERE userId = ? LIMIT 7', [userId]);
     const rows = query[0];
     return rows;
 }
