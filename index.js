@@ -6,6 +6,7 @@ fastify.register(cors);
 
 fastify.register(require('./Routes/UsersRoutes'));
 fastify.register(require('./Routes/GoalsRoutes'));
+fastify.register(require('./Routes/CategoryRoutes'));
 
 
 fastify.listen(port, (err, address) => {
