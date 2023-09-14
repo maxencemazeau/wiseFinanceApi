@@ -2,9 +2,9 @@ const CategoryController = require('../Controller/CategoryController');
 
 const CategoryRoutes = (fastify, option, done) => {
 
-    fastify.get('/userCategory/:id', async(req, res) => {
+    fastify.get('/userDashboardCategory/:id', async(req, res) => {
         const userId= req.params.id;
-        const userCategory = await CategoryController.getCategoryById(userId);
+        const userCategory = await CategoryController.getDashboardCategoryById(userId);
         res.send(userCategory);
     }) 
 
