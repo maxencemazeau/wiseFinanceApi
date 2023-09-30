@@ -7,7 +7,7 @@ const getExpenseByUser = async(userId) => {
 }
 
 const getExpenseByDate = async(userId, startDate, endDate) => {
-    const query = await db.query(`SELECT expenseId, expenseAmount, purchaseDate FROM Expense WHERE userId = ? AND purchaseDate BETWEEN ? AND ?`, [userId, startDate, endDate]);
+    const query = await db.query(`SELECT expenseId, SUM(expenseAmount) as expenseAmount, purchaseDate FROM Expense WHERE userId = ? AND purchaseDate BETWEEN ? AND ? GROUP BY purchaseDate`, [userId, startDate, endDate]);
     const rows = query[0];
     return rows;
 
