@@ -13,4 +13,16 @@ const getExpenseByDate = async(userId, startDate, endDate) => {
 
 }
 
-module.exports = {getExpenseByUser : getExpenseByUser, getExpenseByDate: getExpenseByDate};
+const getExpensePagination = async(userId, itemByPage, offset) => {
+    const query = await db.query(`SELECT expenseId, expenseName, expenseAmount, buyerName, expense.userId, category.categoryName, purchaseDate FROM Expense INNER JOIN Category ON expense.categoryId = Category.categoryId WHERE expense.userId = ? LIMIT ? OFFSET ?`, [userId, itemByPage, offset]);
+    const rows = query[0];
+    return rows;
+}
+
+const getExpenseTotalPage = async(userId) => {
+    const query = await db.query(`SELECT COUNT(expenseId) as total FROM Expense WHERE userId = ?`, [userId])
+    const rows = query[0];
+    return rows;
+}
+
+module.exports = {getExpenseByUser, getExpenseByDate, getExpensePagination, getExpenseTotalPage};

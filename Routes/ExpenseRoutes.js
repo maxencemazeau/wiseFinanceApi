@@ -14,6 +14,17 @@ const ExpenseRoutes = (fastify, option, done) => {
         res.send(expense);
     })
 
+    fastify.get('/expensePagination', async(req, res) => {
+        const page = req.query.page || 1;
+        const userId = req.query.userId;
+        const itemByPage = 3;
+        const offset = (page - 1) * itemByPage;
+        const expense = await ExpenseController.getExpensePagination(userId, itemByPage, offset);
+        const totalExpenseCount = await ExpenseController.getExpenseTotalPage(userId);
+        const totalPage = Math.ceil(totalExpenseCount[0].total / itemByPage);
+        res.send({expense, totalPage});
+    })
+
     done();
 }
 
