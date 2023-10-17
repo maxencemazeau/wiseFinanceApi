@@ -25,4 +25,14 @@ const getExpenseTotalPage = async(userId) => {
     return rows;
 }
 
-module.exports = {getExpenseByUser, getExpenseByDate, getExpensePagination, getExpenseTotalPage};
+const deleteExpense = async(id) => {
+    const [query] = await db.query('DELETE FROM Expense WHERE expenseId = ?', [id]);
+
+    if(query.affectedRows > 0){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+module.exports = {getExpenseByUser, getExpenseByDate, getExpensePagination, getExpenseTotalPage, deleteExpense};

@@ -6,4 +6,24 @@ const getDashboardCategoryById = async(userId) => {
     return rows;
 }
 
-module.exports = {getDashboardCategoryById : getDashboardCategoryById}
+const getCategoryByUser = async(userId) => {
+    const query = await db.query('SELECT categoryId, categoryName FROM category WHERE userId = ?', [userId]);
+    const rows = query[0];
+    return rows;
+}
+
+const addNewCategory = async(userId, categoryName) => {
+    try {
+    const [query] = await db.query(`INSERT INTO category (userId, categoryName) values (?, ?)`, [userId, categoryName]);
+    
+    if (query.affectedRows > 0){
+        return true;
+    } else {
+        return false
+    }
+    }catch(error) {
+        console.error('Error inserting :', error);
+    }
+}
+
+module.exports = {getDashboardCategoryById, getCategoryByUser, addNewCategory}

@@ -17,12 +17,23 @@ const ExpenseRoutes = (fastify, option, done) => {
     fastify.get('/expensePagination', async(req, res) => {
         const page = req.query.page || 1;
         const userId = req.query.userId;
-        const itemByPage = 3;
+        const itemByPage = 7;
         const offset = (page - 1) * itemByPage;
         const expense = await ExpenseController.getExpensePagination(userId, itemByPage, offset);
         const totalExpenseCount = await ExpenseController.getExpenseTotalPage(userId);
         const totalPage = Math.ceil(totalExpenseCount[0].total / itemByPage);
         res.send({expense, totalPage});
+    })
+
+    fastify.delete('/deleteExpense/:id', async(req, res) => {
+        const id = req.params.id
+        const deleteExpense = await ExpenseController.deleteExpense(id);
+        console.log(deleteExpense);
+        if(deleteExpense){
+            res.send('Successfully deleted');
+        }else {
+            res.status(500).send('Failed to create the category');
+        }
     })
 
     done();
